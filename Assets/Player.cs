@@ -19,8 +19,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        var angle = rigidbody.transform.rotation.ToEulerAngles().y * Mathf.Deg2Rad;
-        var lookVector = new Vector2(Mathf.Cos(angle), -Mathf.Sin(angle));
+        var angle = rigidbody.transform.rotation.ToEulerAngles().y;
+        var lookVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
         var movDirection = new Vector2();
         if (Input.GetKey(KeyCode.D)) { movDirection.y += lookVector.x; movDirection.x += lookVector.y; }
