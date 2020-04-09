@@ -8,66 +8,50 @@ public class Player : MonoBehaviour
     public float centerOfMassMovementOffset = 1;
     public float centerOfMassMovementYOffset = 1;
 
-    public float forwardMoveForce = 10f;
-    public float jumpForce = 300f;
+    public float forwardSpeed = 10f;
+    public float jumpSpeed = 30f;
+    public float drag = 5f;
 
-    Rigidbody rigidbody;
+    public LayerMask Ground;
+
+    Vector3 momentForce = new Vector3();
+
+    CharacterController controller;
+    
     void Start()
     {
-        this.rigidbody = GetComponent<Rigidbody>();
+        this.controller = GetComponent<CharacterController>();
     }
 
     void Update()
     {
-        var angle = rigidbody.transform.rotation.ToEulerAngles().y;
-        var lookVector = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+        var mx = Input.GetAxis("Horizontal");
+        var mz = Input.GetAxis("Vertical");
+        //TODO: Normalize
+        var direction = (transform.right * mx + transform.forward * mz) * forwardSpeed + Physics.gravity;
 
-        var movDirection = new Vector2();
-        if (Input.GetKey(KeyCode.D)) { movDirection.y += lookVector.x; movDirection.x += lookVector.y; }
-        if (Input.GetKey(KeyCode.A)) { movDirection.y -= lookVector.x; movDirection.x -= lookVector.y; }
-        if (Input.GetKey(KeyCode.W)) { movDirection.x += lookVector.x; movDirection.y += lookVector.y; }
-        if (Input.GetKey(KeyCode.S)) { movDirection.x -= lookVector.x; movDirection.y -= lookVector.y; }
-        movDirection.Normalize();
-
-        rigidbody.AddForce(
-            movDirection.y * forwardMoveForce,
-            0,
-            movDirection.x * forwardMoveForce
-        );
-
-        if (Input.GetKeyUp(KeyCode.Space) && canJump())
-        {
-            rigidbody.AddForce(0, jumpForce, 0);
+        //
+        var spend = Time.deltaTime * drag;
+        var forceLength = momentForce.magnitude;
+        if (forceLength <= spend) {
+            momentForce = Vector3.zero;
+        } else {
+            momentForce = momentForce.normalized * (forceLength - spend);
         }
 
-        rigidbody.centerOfMass = new Vector3(
-            centerOfMass.x + movDirection.y * centerOfMassMovementOffset,
-            centerOfMass.y + movDirection.magnitude * centerOfMassMovementYOffset,
-            centerOfMass.z + movDirection.x * centerOfMassMovementOffset
-        );
-    }
-
-    void OnDrawGizmos() {
-        var rigidbody = GetComponent<Rigidbody>();
-
-        Gizmos.color = Color.white;
-        Gizmos.DrawIcon(transform.position + transform.rotation * rigidbody.centerOfMass, "food_apple.png", true);
-    }
-
-    // Jump
-
-    private Collision currentCollision;
-
-    internal void SetCollider(Collision collision)
-    {
-        this.currentCollision = collision;
-    }
-
-    private bool canJump() {
-        if (null == currentCollision) {
-            return false;
+        if (Input.GetButtonDown("Jump") && CanJump()) {
+            momentForce += new Vector3(0, jumpSpeed, 0);
         }
 
-        return true;
+        this.controller.Move((direction + momentForce) * Time.deltaTime);
+    }
+
+    void OnControllerColliderHit(ControllerColliderHit hit) {
+        
+    }
+
+
+    bool CanJump() {
+        return Physics.CheckSphere(transform.position, 1.1f, Ground, QueryTriggerInteraction.Ignore);
     }
 }
