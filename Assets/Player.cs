@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
             movDirection.x * forwardMoveForce
         );
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) && canJump())
         {
             rigidbody.AddForce(0, jumpForce, 0);
         }
@@ -52,5 +52,22 @@ public class Player : MonoBehaviour
 
         Gizmos.color = Color.white;
         Gizmos.DrawIcon(transform.position + transform.rotation * rigidbody.centerOfMass, "food_apple.png", true);
+    }
+
+    // Jump
+
+    private Collision currentCollision;
+
+    internal void SetCollider(Collision collision)
+    {
+        this.currentCollision = collision;
+    }
+
+    private bool canJump() {
+        if (null == currentCollision) {
+            return false;
+        }
+
+        return true;
     }
 }
