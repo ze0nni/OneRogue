@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e815111531540904cb73ea7cac58fc8a, type: 3}
+  m_Name: WeaponDataList
+  m_EditorClassIdentifier: 
+  weapons:
+  - Name: Wrench
+    Image: {fileID: 21300000, guid: 7e18f124c5c0bc54e972b9bd5abc6116, type: 3}
+    Demage: 30
+    Range: 2
+    Reload: 2
+  - Name: Axe
+    Image: {fileID: 21300000, guid: 7dfea28b38cecd64db320ddc2ff53cba, type: 3}
+    Demage: 30
+    Range: 2
+    Reload: 4
+  - Name: Pick
+    Image: {fileID: 21300000, guid: ba4e1da62a3051a4abb7c92dcf2cfdbf, type: 3}
+    Demage: 25
+    Range: 3
+    Reload: 3
+  - Name: Hammer
+    Image: {fileID: 21300000, guid: a330379f1aa6e9c40b314a93a7fbf732, type: 3}
+    Demage: 50
+    Range: 0
+    Reload: 10
+  - Name: Knife
+    Image: {fileID: 21300000, guid: 4ee3f1868dd090243a48e5599b2e42be, type: 3}
+    Demage: 20
+    Range: 1
+    Reload: 1
