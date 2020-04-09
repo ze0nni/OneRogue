@@ -5,6 +5,8 @@
     using UnityEditor;
     using UnityEngine;
 
+#if UNITY_EDITOR
+
     [CustomEditor(typeof(WeaponDataList))]
     public class WeaponDataListEditor : Editor
     {
@@ -68,5 +70,7 @@
             }
         }
     }
+
+#endif
 
 }

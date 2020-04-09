@@ -962,7 +962,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 149.71996, y: -0.000045776367}
+  m_AnchoredPosition: {x: 149.71996, y: -0.000061035156}
   m_SizeDelta: {x: 64.5, y: 66.9}
   m_Pivot: {x: 1, y: 0}
 --- !u!1 &458949862
@@ -2743,6 +2743,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c9c04597ff69ea4aba8f78aab65d1ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponList: {fileID: 11400000, guid: 954b7b2bd425dcf4bab28f6f1243f9b9, type: 2}
 --- !u!1 &1803587044
 GameObject:
   m_ObjectHideFlags: 0

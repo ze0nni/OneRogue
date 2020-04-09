@@ -12,6 +12,8 @@
         public float Demage;
         public float Range;
         public float Reload;
+
+        public AnimationCurve hitCurve;
     }
 
 }

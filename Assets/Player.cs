@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(Weapon))]
 public class Player : MonoBehaviour
 {
     public Vector3 centerOfMass = new Vector3(0, -2, 0);
@@ -17,10 +19,12 @@ public class Player : MonoBehaviour
     Vector3 momentForce = new Vector3();
 
     CharacterController controller;
+    Weapon weapon;
     
     void Start()
     {
         this.controller = GetComponent<CharacterController>();
+        this.weapon = GetComponent<Weapon>();
     }
 
     void Update()
@@ -44,6 +48,10 @@ public class Player : MonoBehaviour
         }
 
         this.controller.Move((direction + momentForce) * Time.deltaTime);
+
+        if (Input.GetButtonDown("Fire1")) {
+            weapon.Trigger();
+        }
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit) {
