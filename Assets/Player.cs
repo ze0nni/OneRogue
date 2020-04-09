@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
 {
     public Vector3 centerOfMass = new Vector3(0, -2, 0);
     public float centerOfMassMovementOffset = 1;
+    public float centerOfMassMovementYOffset = 1;
 
     public float forwardMoveForce = 10f;
 
@@ -40,7 +41,7 @@ public class Player : MonoBehaviour
 
         rigidbody.centerOfMass = new Vector3(
             centerOfMass.x + movDirection.y * centerOfMassMovementOffset,
-            centerOfMass.y,
+            centerOfMass.y + movDirection.magnitude * centerOfMassMovementYOffset,
             centerOfMass.z + movDirection.x * centerOfMassMovementOffset
         );
     }

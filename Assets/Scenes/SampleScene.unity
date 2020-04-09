@@ -495,7 +495,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   centerOfMass: {x: 0, y: -3, z: 0}
-  centerOfMassMovementOffset: 2
+  centerOfMassMovementOffset: 4
+  centerOfMassMovementYOffset: 1
   forwardMoveForce: 20
 --- !u!1 &984031083
 GameObject:
