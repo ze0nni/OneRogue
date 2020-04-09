@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     public float centerOfMassMovementYOffset = 1;
 
     public float forwardMoveForce = 10f;
+    public float jumpForce = 300f;
 
     Rigidbody rigidbody;
     void Start()
@@ -36,7 +37,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            rigidbody.AddForce(0, 300, 0);
+            rigidbody.AddForce(0, jumpForce, 0);
         }
 
         rigidbody.centerOfMass = new Vector3(
