@@ -21,7 +21,7 @@ public class Weapon : MonoBehaviour
 
     }
 
-    internal void Trigger()
+    #region Triggere
     {
         StartCoroutine(HitTask(currentWeapon));
     }
@@ -32,9 +32,19 @@ public class Weapon : MonoBehaviour
     }
 
     sealed public class WeaponHitTask  {
-        public WeaponData weapon;
-        public WeaponHitTaskPhase phase;
-        public float ratio;
+        public WeaponData weapon { get; }
+        public WeaponHitTaskPhase phase { get; private set; }
+        public float ratio { get; private set; }
+
+        internal WeaponHitTask(WeaponData weapon) {
+            this.weapon = weapon;
+        }
+
+        internal void update(float ratio, WeaponHitTaskPhase phase)
+        {
+            this.ratio = ratio;
+            this.phase = phase;
+        }
 
         public float ratioYOffset() {
             switch (phase) {
@@ -62,12 +72,11 @@ public class Weapon : MonoBehaviour
     IEnumerator HitTask(WeaponData currentWeapon) {
         var wait = currentWeapon.Prepare / 1000f;
 
-        var msg = new WeaponHitTask();
+        var msg = new WeaponHitTask(currentWeapon);
 
         while (wait > 0)
         {
-            msg.weapon = currentWeapon;
-            msg.phase = WeaponHitTaskPhase.Prepare;
+            msg.update(1f - (wait / currentWeapon.Prepare * 1000f), WeaponHitTaskPhase.Prepare);
             msg.ratio = 1f - (wait / currentWeapon.Prepare * 1000f);
 
             SendMessage("OnWeaponHitTask", msg, SendMessageOptions.DontRequireReceiver);
@@ -80,17 +89,17 @@ public class Weapon : MonoBehaviour
         wait = currentWeapon.Reload / 1000f;
         while (wait > 0)
         {
-            msg.weapon = currentWeapon;
-            msg.phase = WeaponHitTaskPhase.Reload;
-            msg.ratio = 1f - (wait / currentWeapon.Reload * 1000f);
+            msg.update(1f - (wait / currentWeapon.Reload * 1000f), WeaponHitTaskPhase.Reload);
 
             SendMessage("OnWeaponHitTask", msg, SendMessageOptions.DontRequireReceiver);
             yield return new WaitForFixedUpdate();
             wait -= Time.deltaTime;
         }
 
-        msg.weapon = currentWeapon;
+        msg.update(1, WeaponHitTaskPhase.Reload);
         msg.ratio = 1f;
         SendMessage("OnWeaponHitTask", msg, SendMessageOptions.DontRequireReceiver);
     }
+
+    #endregion
 }
