@@ -11,15 +11,19 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
-        //currentWeapon = weaponList.weapons[Random.Range(0, weaponList.weapons.Length)];
-        currentWeapon = weaponList.weapons[0];
+        Switch();
+    }
+
+    internal void Switch()
+    {
+        currentWeapon = weaponList.weapons[Random.Range(0, weaponList.weapons.Length)];
 
         SendMessage("OnWeaponChanged", currentWeapon, SendMessageOptions.DontRequireReceiver);
     }
 
     void Update()
     {
-
+        
     }
 
 #region Triggere

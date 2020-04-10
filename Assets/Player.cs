@@ -50,6 +50,10 @@ public class Player : MonoBehaviour
         this.controller.Move((direction + momentForce) * Time.deltaTime);
 
         weapon.Trigger(Input.GetButton("Fire1"));
+
+        if (Input.GetButtonDown("Fire2")) {
+            weapon.Switch();
+        }
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit) {
