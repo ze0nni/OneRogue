@@ -43,12 +43,14 @@ public class Weapon : MonoBehaviour
         Reload
     }
 
-    sealed public class WeaponHitTask  {
+    sealed public class WeaponHitTask
+    {
         public WeaponData weapon { get; }
         public WeaponHitTaskPhase phase { get; private set; }
         public float ratio { get; private set; }
 
-        internal WeaponHitTask(WeaponData weapon) {
+        internal WeaponHitTask(WeaponData weapon)
+        {
             this.weapon = weapon;
         }
 
@@ -58,30 +60,14 @@ public class Weapon : MonoBehaviour
             this.phase = phase;
         }
 
-        public float ratioYOffset() {
-            switch (phase) {
-                case WeaponHitTaskPhase.Prepare:
-                    return weapon.PrepareCurveYOffset.Evaluate(ratio);
-                case WeaponHitTaskPhase.Hit:
-                    return weapon.PrepareCurveYOffset.Evaluate(ratio);
-                case WeaponHitTaskPhase.Reload:
-                    return weapon.ReloadCurveYOffset.Evaluate(ratio);
-            }
-            return 0;
+        public float ratioYOffset()
+        {
+            return weapon.PrepareCurveYOffset.Evaluate(ratio);
         }
 
         public float ratioZRotation()
         {
-            switch (phase)
-            {
-                case WeaponHitTaskPhase.Prepare:
-                    return weapon.PrepareCurveZRotation.Evaluate(ratio);
-                case WeaponHitTaskPhase.Hit:
-                    return weapon.PrepareCurveZRotation.Evaluate(ratio);
-                case WeaponHitTaskPhase.Reload:
-                    return weapon.ReloadCurveZRotation.Evaluate(ratio);
-            }
-            return 0;
+            return weapon.PrepareCurveZRotation.Evaluate(ratio);
         }
     }
 
@@ -105,15 +91,13 @@ public class Weapon : MonoBehaviour
 
         yield return new WaitWhile(() => isTriggered);
 
-        yield return HitPaseTask(WeaponHitTaskPhase.Hit, msg, currentWeapon.Release, 1, 2);
+        yield return HitPaseTask(WeaponHitTaskPhase.Hit, msg, currentWeapon.Release, 1 - wait, 2);
 
         SendMessage("OnWeaponHit", currentWeapon, SendMessageOptions.DontRequireReceiver);
 
-        yield return HitPaseTask(WeaponHitTaskPhase.Reload, msg, currentWeapon.Reload, 0, 1);
+        yield return HitPaseTask(WeaponHitTaskPhase.Reload, msg, currentWeapon.Reload, 2, 3);
 
         isHitTaskInProgress = false;
-
-
     }
 
     IEnumerator HitPaseTask(WeaponHitTaskPhase phase, WeaponHitTask msg, float waitMs, float min, float max) {

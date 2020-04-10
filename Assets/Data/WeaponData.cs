@@ -14,12 +14,10 @@
 
         public float Prepare;
         public float Release;
+        public float Reload;
+
         public AnimationCurve PrepareCurveYOffset;
         public AnimationCurve PrepareCurveZRotation;
-
-        public float Reload;
-        public AnimationCurve ReloadCurveYOffset;
-        public AnimationCurve ReloadCurveZRotation;
     }
 
 }

@@ -49,9 +49,7 @@ public class Player : MonoBehaviour
 
         this.controller.Move((direction + momentForce) * Time.deltaTime);
 
-        if (Input.GetButtonDown("Fire1")) {
-            weapon.Trigger();
-        }
+        weapon.Trigger(Input.GetButton("Fire1"));
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit) {
