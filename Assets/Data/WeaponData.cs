@@ -11,9 +11,14 @@
 
         public float Demage;
         public float Range;
-        public float Reload;
 
-        public AnimationCurve hitCurve;
+        public float Prepare;
+        public AnimationCurve PrepareCurveYOffset;
+        public AnimationCurve PrepareCurveZRotation;
+
+        public float Reload;
+        public AnimationCurve ReloadCurveYOffset;
+        public AnimationCurve ReloadCurveZRotation;
     }
 
 }

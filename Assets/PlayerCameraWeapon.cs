@@ -15,6 +15,7 @@ public class PlayerCameraWeapon : MonoBehaviour
 
     GameObject currentWeapon;
     Image currentWeaponImage;
+    Vector3 currentWeaponBasePosition;
 
     void Start()
     {
@@ -39,14 +40,21 @@ public class PlayerCameraWeapon : MonoBehaviour
         currentWeaponImage.rectTransform.pivot = weapon.Image.pivot / weapon.Image.rect.size;
 
         currentWeapon.transform.SetParent(rightRoot.transform, false);
+        currentWeaponBasePosition = currentWeaponImage.rectTransform.position;
     }
 
     void OnWeaponHitTask(Weapon.WeaponHitTask task) {
         if (null != currentWeaponImage) {
-            currentWeaponImage.rectTransform.rotation = Quaternion.EulerAngles(
+            currentWeaponImage.rectTransform.position = new Vector3(
+                currentWeaponBasePosition.x,
+                currentWeaponBasePosition.y + task.ratioYOffset() * task.weapon.Image.rect.height,
+                currentWeaponBasePosition.z
+            );
+
+            currentWeaponImage.rectTransform.rotation = Quaternion.Euler(
                 0,
                 0,
-                -task.weapon.hitCurve.Evaluate(task.ratio) * Mathf.PI
+                -task.ratioZRotation() * 2 * Mathf.PI * Mathf.Rad2Deg
             );
         }
     }
