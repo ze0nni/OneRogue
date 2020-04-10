@@ -1,6 +1,6 @@
 ﻿namespace Data
 {
-
+    using EditorTools;
     using UnityEngine;
 
     [System.Serializable]
@@ -16,8 +16,11 @@
         public float Release;
         public float Reload;
 
-        public AnimationCurve PrepareCurveYOffset;
-        public AnimationCurve PrepareCurveZRotation;
+        [CurveAttribute(0, -1, 3, 2, true)]
+        public AnimationCurve PrepareCurveYOffset = AnimationCurve.Linear(0, 0, 3, 0);
+
+        [CurveAttribute(0, -1, 3, 2, true)]
+        public AnimationCurve PrepareCurveZRotation = AnimationCurve.Linear(0, 0, 3, 0);
     }
 
 }
