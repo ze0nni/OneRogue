@@ -11,7 +11,8 @@ public class Weapon : MonoBehaviour
 
     void Start()
     {
-        currentWeapon = weaponList.weapons[Random.Range(0, weaponList.weapons.Length)];
+        //currentWeapon = weaponList.weapons[Random.Range(0, weaponList.weapons.Length)];
+        currentWeapon = weaponList.weapons[0];
 
         SendMessage("OnWeaponChanged", currentWeapon, SendMessageOptions.DontRequireReceiver);
     }
@@ -21,13 +22,24 @@ public class Weapon : MonoBehaviour
 
     }
 
-    #region Triggere
+#region Triggere
+
+    bool isTriggered;
+    bool isHitTaskInProgress;
+
+    internal void Trigger(bool value)
     {
-        StartCoroutine(HitTask(currentWeapon));
+        isTriggered = value;
+
+        if (value && false == isHitTaskInProgress)
+        {
+            StartCoroutine(HitTask(currentWeapon));
+        }
     }
 
     public enum WeaponHitTaskPhase {
         Prepare,
+        Hit,
         Reload
     }
 
@@ -50,6 +62,8 @@ public class Weapon : MonoBehaviour
             switch (phase) {
                 case WeaponHitTaskPhase.Prepare:
                     return weapon.PrepareCurveYOffset.Evaluate(ratio);
+                case WeaponHitTaskPhase.Hit:
+                    return weapon.PrepareCurveYOffset.Evaluate(ratio);
                 case WeaponHitTaskPhase.Reload:
                     return weapon.ReloadCurveYOffset.Evaluate(ratio);
             }
@@ -62,6 +76,8 @@ public class Weapon : MonoBehaviour
             {
                 case WeaponHitTaskPhase.Prepare:
                     return weapon.PrepareCurveZRotation.Evaluate(ratio);
+                case WeaponHitTaskPhase.Hit:
+                    return weapon.PrepareCurveZRotation.Evaluate(ratio);
                 case WeaponHitTaskPhase.Reload:
                     return weapon.ReloadCurveZRotation.Evaluate(ratio);
             }
@@ -70,34 +86,60 @@ public class Weapon : MonoBehaviour
     }
 
     IEnumerator HitTask(WeaponData currentWeapon) {
+        isHitTaskInProgress = true;
+
         var wait = currentWeapon.Prepare / 1000f;
 
         var msg = new WeaponHitTask(currentWeapon);
 
-        while (wait > 0)
+        #region Prepare
+        while (wait > 0 && isTriggered)
         {
             msg.update(1f - (wait / currentWeapon.Prepare * 1000f), WeaponHitTaskPhase.Prepare);
-            msg.ratio = 1f - (wait / currentWeapon.Prepare * 1000f);
 
             SendMessage("OnWeaponHitTask", msg, SendMessageOptions.DontRequireReceiver);
             yield return new WaitForFixedUpdate();
             wait -= Time.deltaTime;
         }
+        #endregion
+
+        yield return new WaitWhile(() => isTriggered);
+
+        yield return HitPaseTask(WeaponHitTaskPhase.Hit, msg, currentWeapon.Release, 1, 2);
 
         SendMessage("OnWeaponHit", currentWeapon, SendMessageOptions.DontRequireReceiver);
 
-        wait = currentWeapon.Reload / 1000f;
+        yield return HitPaseTask(WeaponHitTaskPhase.Reload, msg, currentWeapon.Reload, 0, 1);
+
+        isHitTaskInProgress = false;
+
+
+    }
+
+    IEnumerator HitPaseTask(WeaponHitTaskPhase phase, WeaponHitTask msg, float waitMs, float min, float max) {
+        var wait = waitMs / 1000f;
+        var range = max - min;
+
+        SendMessage("OnWeaponHitTask", msg, SendMessageOptions.DontRequireReceiver);
+        yield return new WaitForFixedUpdate();
+        wait -= Time.deltaTime;
         while (wait > 0)
         {
-            msg.update(1f - (wait / currentWeapon.Reload * 1000f), WeaponHitTaskPhase.Reload);
+            msg.update(
+                min + (1f - (wait / waitMs * 1000f)) * range, 
+                phase
+            );
 
             SendMessage("OnWeaponHitTask", msg, SendMessageOptions.DontRequireReceiver);
             yield return new WaitForFixedUpdate();
             wait -= Time.deltaTime;
         }
 
-        msg.update(1, WeaponHitTaskPhase.Reload);
-        msg.ratio = 1f;
+        msg.update(
+            max,
+            phase
+        );
+
         SendMessage("OnWeaponHitTask", msg, SendMessageOptions.DontRequireReceiver);
     }
 

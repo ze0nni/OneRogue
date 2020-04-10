@@ -13,6 +13,7 @@
         public float Range;
 
         public float Prepare;
+        public float Release;
         public AnimationCurve PrepareCurveYOffset;
         public AnimationCurve PrepareCurveZRotation;
 
