@@ -21,6 +21,23 @@ public class Weapon : MonoBehaviour
         SendMessage("OnWeaponChanged", currentWeapon, SendMessageOptions.DontRequireReceiver);
     }
 
+    private void ApplyHit(WeaponData weapon) {
+        var hits = Physics.OverlapSphere(
+            transform.position + transform.forward * weapon.Range * 0.5f,
+            weapon.Range / 2
+        );
+        foreach (var h in hits)
+        {
+            var rigid = h.gameObject.GetComponent<Rigidbody>();
+            if (null != rigid)
+            {
+                var f = h.gameObject.transform.position - transform.position;
+
+                rigid.AddForce(f.normalized * weapon.Mass, ForceMode.Impulse);
+            }
+        }
+    }
+
     void Update()
     {
         
@@ -100,6 +117,8 @@ public class Weapon : MonoBehaviour
             //If player not prepare
             1 - (1-msg.ratio),
         2);
+
+        ApplyHit(currentWeapon);
 
         SendMessage("OnWeaponHit", currentWeapon, SendMessageOptions.DontRequireReceiver);
 
