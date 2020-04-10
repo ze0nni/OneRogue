@@ -9,6 +9,7 @@
         public string Name;
         public Sprite Image;
 
+        public float Mass = 1f;
         public float Demage;
         public float Range;
 

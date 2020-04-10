@@ -31,10 +31,10 @@ public class PlayerCameraWeapon : MonoBehaviour
     
     void OnWeaponChanged(WeaponData weapon) {
         if (null != currentWeapon) {
-            //
+            DestroyObject(currentWeapon);
         }
 
-        currentWeapon = new GameObject();
+        currentWeapon = new GameObject(weapon.Name);
         currentWeaponImage = currentWeapon.AddComponent<Image>();
         currentWeaponImage.sprite = weapon.Image;
         currentWeaponImage.rectTransform.pivot = weapon.Image.pivot / weapon.Image.rect.size;
@@ -59,7 +59,18 @@ public class PlayerCameraWeapon : MonoBehaviour
         }
     }
 
-    void OnWeaponTriggered(WeaponData weapon) {
-        
+    void OnWeaponHit(WeaponData weapon) {
+        var hits = Physics.OverlapSphere(
+            transform.position + transform.forward * weapon.Range * 0.5f,
+            weapon.Range / 2
+        );
+        foreach (var h in hits) {
+            var rigid = h.gameObject.GetComponent<Rigidbody>();
+            if (null != rigid) {
+                var f = h.gameObject.transform.position - transform.position;
+
+                rigid.AddForce(f.normalized * weapon.Mass, ForceMode.Impulse);
+            }
+        }
     }
 }
