@@ -91,7 +91,11 @@ public class Weapon : MonoBehaviour
 
         yield return new WaitWhile(() => isTriggered);
 
-        yield return HitPaseTask(WeaponHitTaskPhase.Hit, msg, currentWeapon.Release, 1 - wait, 2);
+        yield return HitPaseTask(
+            WeaponHitTaskPhase.Hit, msg, currentWeapon.Release,
+            //If player not prepare
+            1 - (1-msg.ratio),
+        2);
 
         SendMessage("OnWeaponHit", currentWeapon, SendMessageOptions.DontRequireReceiver);
 
