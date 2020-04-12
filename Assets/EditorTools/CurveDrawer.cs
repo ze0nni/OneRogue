@@ -1,4 +1,6 @@
 ﻿namespace EditorTools {
+
+
     using UnityEngine;
     using UnityEditor;
 
@@ -18,7 +20,7 @@
             this.b = b;
         }
     }
-
+#if UNITY_EDITOR
     [CustomPropertyDrawer(typeof(CurveAttribute))]
     public class CurveDrawer : PropertyDrawer
     {
@@ -33,4 +35,5 @@
             }
         }
     }
+#endif
 }

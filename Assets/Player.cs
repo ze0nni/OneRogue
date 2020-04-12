@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
 
     private float horizontalAxis = 0;
     private float verticalAxis = 0;
+    private float mouseAxisX = 0;
+    private float mouseAxisY = 0;
 
     public LayerMask Ground;
 
@@ -37,6 +39,19 @@ public class Player : MonoBehaviour
     public void SetVerticalAxis(float value)
     {
         this.verticalAxis = value;
+    }
+
+    public void SetCameraAxisX(float value) {
+        this.mouseAxisX = value;
+    }
+
+    public void SetCameraAxisY(float value)
+    {
+        this.mouseAxisY = value;
+    }
+
+    public Vector2 GetMouseAxis() {
+        return new Vector2(mouseAxisX, mouseAxisY);
     }
 
     void Update()
