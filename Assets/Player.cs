@@ -14,6 +14,9 @@ public class Player : MonoBehaviour
     public float jumpSpeed = 30f;
     public float drag = 5f;
 
+    private float horizontalAxis = 0;
+    private float verticalAxis = 0;
+
     public LayerMask Ground;
 
     Vector3 momentForce = new Vector3();
@@ -27,10 +30,20 @@ public class Player : MonoBehaviour
         this.weapon = GetComponent<Weapon>();
     }
 
+    public void SetHorisontalAxis(float value) {
+        this.horizontalAxis = value;
+    }
+
+    public void SetVerticalAxis(float value)
+    {
+        this.verticalAxis = value;
+    }
+
     void Update()
     {
-        var mx = Input.GetAxis("Horizontal");
-        var mz = Input.GetAxis("Vertical");
+        var mx = this.horizontalAxis;
+        var mz = this.verticalAxis;
+        
         //TODO: Normalize
         var direction = (transform.right * mx + transform.forward * mz) * forwardSpeed + Physics.gravity;
 

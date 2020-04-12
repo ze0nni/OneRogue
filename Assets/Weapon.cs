@@ -38,6 +38,16 @@ public class Weapon : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos() {
+        if (null == currentWeapon) {
+            return;
+        }
+        Gizmos.DrawSphere(
+            transform.position + transform.forward * currentWeapon.Range * 0.5f,
+            currentWeapon.Range / 2
+        );
+    }
+
     void Update()
     {
         
