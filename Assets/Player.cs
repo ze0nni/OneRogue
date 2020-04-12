@@ -42,12 +42,12 @@ public class Player : MonoBehaviour
     }
 
     public void SetCameraAxisX(float value) {
-        this.mouseAxisX = value;
+        this.mouseAxisX += value;
     }
 
     public void SetCameraAxisY(float value)
     {
-        this.mouseAxisY = value;
+        this.mouseAxisY += value;
     }
 
     public Vector2 GetMouseAxis() {

@@ -1,29 +1,97 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
-public class TouchBarInput : MonoBehaviour
+[System.Serializable]
+public class OnCoordChanged : UnityEvent<float>
 {
-    public Player player;
-    public float mouseSens = 0.1f;
+}
+
+public class TouchBarInput : MonoBehaviour,
+    IPointerDownHandler
+{
+    public bool YInvert = true;
+
+    private float sensScale;
+
+    private bool active;
+    private Vector2 startPosition;
+    private int touchFinger;
+    private Vector2 startInputPos;
 
     private float xAngle;
     private float yAngle;
 
-    void Start()
+    public OnCoordChanged OnReleativeCoordX;
+    public OnCoordChanged OnReleativeCoordY;
+    public OnCoordChanged OnDeltaCoordX;
+    public OnCoordChanged OnDeltaCoordY;
+
+    void Start() {
+        this.sensScale = (Mathf.PI * 2) / Screen.width;
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
     {
-        
+        if (this.active) {
+            return;
+        }
+
+        foreach (var t in Input.touches) {
+            if (TouchPhase.Began == t.phase)
+            {
+                this.active = true;
+                this.touchFinger = t.fingerId;
+                this.startPosition = t.position;
+
+                return;
+            }
+        }
+    }
+
+    public bool GetTouch(int touchFinger, ref Touch touch)
+    {
+        var count = Input.touchCount;
+        for (var i = 0; i < count; i++)
+        {
+            var t = Input.GetTouch(i);
+            if (t.fingerId == touchFinger)
+            {
+                touch = t;
+                return true;
+            }
+        }
+        return false;
     }
 
     void Update()
     {
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+        if (false == active) {
+            return;
+        }
 
-        xAngle = Mathf.Clamp(xAngle - mouseY * mouseSens, -90, 90);
-        yAngle += mouseX * mouseSens;
+        Touch touch = new Touch();
+        if (false == GetTouch(this.touchFinger, ref touch)
+            || TouchPhase.Ended == touch.phase
+            || TouchPhase.Canceled == touch.phase
+        ) {
+            this.active = false;
 
-        player.SetCameraAxisX(xAngle);
-        player.SetCameraAxisY(yAngle);
+            OnReleativeCoordX.Invoke(0);
+            OnReleativeCoordY.Invoke(0);
+            OnDeltaCoordX.Invoke(0);
+            OnDeltaCoordY.Invoke(0);
+
+            return;
+        }
+        var offset = touch.deltaPosition * sensScale;
+        var releative = (touch.position - this.startPosition) * sensScale;
+
+        OnReleativeCoordX.Invoke(releative.x);
+        OnReleativeCoordY.Invoke(YInvert ? -releative.y : releative.y);
+        OnDeltaCoordX.Invoke(offset.x);
+        OnDeltaCoordY.Invoke(YInvert ? -offset.y : offset.y);
     }
 }
