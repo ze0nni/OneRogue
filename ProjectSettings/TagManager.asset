@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Monster
+  - Dangeon
   layers:
   - Default
   - TransparentFX

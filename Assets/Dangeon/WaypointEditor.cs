@@ -1,4 +1,6 @@
-﻿namespace Dangeon
+﻿#if UNITY_EDITOR
+
+namespace Dangeon
 {
     using UnityEditor;
     using UnityEngine;
@@ -33,3 +35,5 @@
         }
     }
 }
+
+#endif

@@ -67,7 +67,7 @@ GameObject:
   - component: {fileID: 5448452785055149547}
   m_Layer: 0
   m_Name: DeadEnd
-  m_TagString: Untagged
+  m_TagString: Dangeon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
