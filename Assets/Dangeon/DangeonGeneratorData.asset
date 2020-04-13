@@ -13,15 +13,13 @@ MonoBehaviour:
   m_Name: DangeonGeneratorData
   m_EditorClassIdentifier: 
   Tiles:
-  - tilePrefab: {fileID: 3806985276963692943, guid: eaa8e21da4e48a241a3bce56e1a890a3,
+  - tilePrefab: {fileID: 8748956993622685727, guid: eaa8e21da4e48a241a3bce56e1a890a3,
       type: 3}
-  - tilePrefab: {fileID: 5448452785055149544, guid: 15f274343239dac4c85250aa8efadbd6,
+  - tilePrefab: {fileID: 7852714991442307766, guid: 15f274343239dac4c85250aa8efadbd6,
       type: 3}
-  - tilePrefab: {fileID: 4566165334297596737, guid: 5192580a6e41ca9428a54759949e7811,
+  - tilePrefab: {fileID: 4373217204899331749, guid: 61ea93bc1cb00234cbf4c2cd1464bc92,
       type: 3}
-  - tilePrefab: {fileID: 3437041235394859090, guid: a4c371b11173d2646b014999fc7e2fa2,
+  - tilePrefab: {fileID: 9001621037920526219, guid: a4c371b11173d2646b014999fc7e2fa2,
       type: 3}
-  - tilePrefab: {fileID: 1234630245438424817, guid: 276710bfb46a21e4fb766747e920eb9f,
-      type: 3}
-  - tilePrefab: {fileID: 8424104004934184308, guid: bb81543434f8669469d26fd286f223e2,
+  - tilePrefab: {fileID: 7360963505159773062, guid: 276710bfb46a21e4fb766747e920eb9f,
       type: 3}

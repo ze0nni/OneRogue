@@ -37,12 +37,14 @@
                 )
             ) {
                 Gizmos.color = Color.green;
-                var p1 = transform.position + transform.rotation * (line.Item1.position + new Vector3(0.5f, 0.5f, -0.5f));
-                var p2 = transform.position + transform.rotation * (line.Item2.position + new Vector3(0.5f, 0.5f, -0.5f));
+                var p1 = transform.position + transform.rotation * (line.Item1.position) + new Vector3(0.5f, 0.5f, 0.5f);
+                var p2 = transform.position + transform.rotation * (line.Item2.position) + new Vector3(0.5f, 0.5f, 0.5f);
                 Gizmos.DrawLine(p1,p2);
                 if (line.a.IsExitPoint) {
                     Gizmos.color = Color.blue;
                     Gizmos.DrawCube(p1, new Vector3(0.1f, 0.1f, 0.1f));
+                } else {
+                    Gizmos.DrawSphere(p1, 0.05f);
                 }
             }
         }
