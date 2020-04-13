@@ -1,11 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Dangeon : MonoBehaviour
+﻿namespace Dangeon
 {
-    void Start()
+
+    using System.Collections;
+    using System.Collections.Generic;
+    using UnityEngine;
+
+    public class Dangeon : MonoBehaviour
     {
-        
+        void Start()
+        {
+
+        }
     }
+
+
 }

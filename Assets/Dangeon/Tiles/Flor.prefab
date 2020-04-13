@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4566165334297596796}
   - component: {fileID: 4566165334297596739}
   - component: {fileID: 4566165334297596738}
+  - component: {fileID: 8550498542071668521}
   m_Layer: 0
   m_Name: Flor
   m_TagString: Untagged
@@ -308,3 +309,48 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 14
   m_Mesh: {fileID: 0}
+--- !u!114 &8550498542071668521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4566165334297596737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 615a096e6239d874c832f2a1bd712e65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Points:
+  - position: {x: 0, y: 1, z: 0}
+    IsExitPoint: 1
+  - position: {x: 1, y: 1, z: 0}
+    IsExitPoint: 1
+  - position: {x: 2, y: 1, z: 0}
+    IsExitPoint: 1
+  - position: {x: 3, y: 1, z: 0}
+    IsExitPoint: 1
+  - position: {x: 4, y: 1, z: 0}
+    IsExitPoint: 1
+  - position: {x: 4, y: 1, z: -1}
+    IsExitPoint: 1
+  - position: {x: 4, y: 1, z: -2}
+    IsExitPoint: 1
+  - position: {x: 4, y: 1, z: -3}
+    IsExitPoint: 1
+  - position: {x: 4, y: 1, z: -4}
+    IsExitPoint: 1
+  - position: {x: 3, y: 1, z: -4}
+    IsExitPoint: 1
+  - position: {x: 2, y: 1, z: -4}
+    IsExitPoint: 1
+  - position: {x: 1, y: 1, z: -4}
+    IsExitPoint: 1
+  - position: {x: 0, y: 1, z: -4}
+    IsExitPoint: 1
+  - position: {x: 0, y: 1, z: -3}
+    IsExitPoint: 1
+  - position: {x: 0, y: 1, z: -2}
+    IsExitPoint: 1
+  - position: {x: 0, y: 1, z: -1}
+    IsExitPoint: 1
