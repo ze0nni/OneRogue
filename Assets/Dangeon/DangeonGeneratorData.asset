@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60caff696da134a4885a1c1958e254a9, type: 3}
+  m_Name: DangeonGeneratorData
+  m_EditorClassIdentifier: 
+  Tiles:
+  - tilePrefab: {fileID: 3806985276963692943, guid: eaa8e21da4e48a241a3bce56e1a890a3,
+      type: 3}
+  - tilePrefab: {fileID: 5448452785055149544, guid: 15f274343239dac4c85250aa8efadbd6,
+      type: 3}
+  - tilePrefab: {fileID: 4566165334297596737, guid: 5192580a6e41ca9428a54759949e7811,
+      type: 3}
+  - tilePrefab: {fileID: 3437041235394859090, guid: a4c371b11173d2646b014999fc7e2fa2,
+      type: 3}
+  - tilePrefab: {fileID: 1234630245438424817, guid: 276710bfb46a21e4fb766747e920eb9f,
+      type: 3}
+  - tilePrefab: {fileID: 8424104004934184308, guid: bb81543434f8669469d26fd286f223e2,
+      type: 3}

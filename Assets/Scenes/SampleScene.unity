@@ -4644,6 +4644,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cb4cd6c30d5e6d479689bae80bd7e9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DangeonGeneratorData: {fileID: 11400000, guid: 538e786fe8e3afa4190827f4115b1430,
+    type: 2}
 --- !u!4 &591888966 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5448452785055149551, guid: 15f274343239dac4c85250aa8efadbd6,
