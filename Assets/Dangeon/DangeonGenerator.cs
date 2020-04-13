@@ -25,6 +25,10 @@
             }
         }
 
+        public void Generate(int width, int height, int levels) {
+            
+        }
+
         public enum CellType { None, Way, Exit }
 
         public struct CellMap {
