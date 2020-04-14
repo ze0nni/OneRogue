@@ -28,7 +28,7 @@
             return Split(
                 new RectInt(0, 0, width, height),
                 random
-            );
+            ).Select(r => ShakeRoom(r, random)).ToList();
         }
 
         private List<RectInt> Split(RectInt rect, System.Random random)
@@ -69,6 +69,20 @@
         private float GetRatio(int a, int b)
         {
             return a > b ? b / (float)a : a / (float)b;
+        }
+
+        private RectInt ShakeRoom(RectInt room, System.Random random) {
+            var newWidth = random.Next(minRoomSize, room.width + 1);
+            var newHeight = random.Next(minRoomSize, room.height + 1);
+            var newX = random.Next(room.x, room.x + (room.width - newWidth));
+            var newY = random.Next(room.y, room.y + (room.height - newHeight));
+            return new RectInt()
+            {
+                x = newX,
+                y = newY,
+                width = newWidth,
+                height = newHeight
+            };
         }
     }
 
