@@ -29,7 +29,7 @@
                 rect = roomToRect(r)
             }).OrderBy(n => n.rect.center.x);
 
-            var graph = new Graph<Node>(nodes);
+            var graph = new Graph<Node, bool>(nodes, v => v);
 
             return graph.Links().Select(x => (x.Item1.room, x.Item2.room)).ToList();
         }

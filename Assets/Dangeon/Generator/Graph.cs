@@ -1,17 +1,20 @@
 ﻿namespace Dangeon.Generator
 {
-
+    using System;
     using System.Collections.Generic;
 
-    internal class Graph<N> where N : class
+    internal class Graph<N,V> where N : class
     {
         private List<N> nodes;
-        private Dictionary<N, int> nodeIndex = new Dictionary<N, int>();
-        private bool[,] links;
+        private Predicate<V> predicate;
 
-        public Graph(IEnumerable<N> nodes)
+        private Dictionary<N, int> nodeIndex = new Dictionary<N, int>();
+        private V[,] links;
+
+        public Graph(IEnumerable<N> nodes, Predicate<V> predicate)
         {
             this.nodes = new List<N>(nodes);
+            this.predicate = predicate;
 
             var size = this.nodes.Count;
             for (var i = 0; i < size; i++)
@@ -19,10 +22,10 @@
                 this.nodeIndex[this.nodes[i]] = i;
             }
 
-            this.links = new bool[size, size];
+            this.links = new V[size, size];
         }
 
-        public void Update(bool linked, params N[] links)
+        public void Update(V value, params N[] links)
         {
             var size = links.Length;
             int[] indexes = new int[size];
@@ -33,17 +36,36 @@
                 for (var b = a + 1; b < size; b ++) {
                     var ia = indexes[a];
                     var ib = indexes[b];
-                    this.links[ia, ib] = linked;
-                    this.links[ib, ia] = linked;
+                    this.links[ia, ib] = value;
+                    this.links[ib, ia] = value;
                 }
             }
         }
 
-        public bool IsLinked(N a, N b)
-        {
+        public delegate V ValueOF(N a, N b, V current);
+
+        public void Update(ValueOF valueOf) {
+            var size = nodes.Count;
+            for (var a = 0; a < size; a++)
+            {
+                for (var b = 0; b < a; b++)
+                {
+                    var value = valueOf(nodes[a], nodes[b], links[a, b]);
+                    links[a, b] = value;
+                    links[a, b] = value;
+                }
+            }
+        }
+
+        public V Value(N a, N b) {
             var an = nodeIndex[a];
             var bn = nodeIndex[b];
             return links[an, bn];
+        }
+
+        public bool IsLinked(N a, N b)
+        {
+            return predicate.Invoke(Value(a, b));
         }
 
         public List<N> Neighbors(N a) {
@@ -52,7 +74,7 @@
             var an = nodeIndex[a];
             var size = nodes.Count;
             for (var i = 0; i < size; i++) {
-                if (links[an, i] && an != i) {
+                if (predicate.Invoke(links[an, i]) && an != i) {
                     result.Add(nodes[i]);
                 }
             }
@@ -67,7 +89,7 @@
             for (var a = 0; a <size; a++) {
                 for (var b = 0; b < a; b++)
                 {
-                    if (links[a, b])
+                    if (predicate.Invoke(links[a, b]))
                     {
                         result.Add((nodes[a], nodes[b]));
                     }
