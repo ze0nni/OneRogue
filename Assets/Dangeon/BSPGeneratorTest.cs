@@ -1,5 +1,6 @@
 ﻿namespace Dangeon
 {
+    using global::Dangeon.Generator;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
@@ -12,7 +13,7 @@
         public RectTransform DangeonDisplay;
 
         private System.Random random = new System.Random();
-        private BSPGenerator generator = new BSPGenerator(5, 20, 0.5f);
+        private BSPGenerator generator = new BSPGenerator(3, 15, 0.5f);
 
         void Start()
         {
