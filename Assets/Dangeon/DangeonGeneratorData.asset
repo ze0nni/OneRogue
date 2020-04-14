@@ -15,3 +15,6 @@ MonoBehaviour:
   Tiles:
   - tilePrefab: {fileID: 4373217204899331749, guid: 61ea93bc1cb00234cbf4c2cd1464bc92,
       type: 3}
+  Monsters:
+  - {fileID: 11400000, guid: dea8917b544704b4f9277246d539eeaa, type: 2}
+  - {fileID: 11400000, guid: 72ac88ac6cb0a994ba3c34a96f6cc70f, type: 2}

@@ -1,4 +1,5 @@
 ﻿namespace Dangeon {
+    using Monsters;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
@@ -11,6 +12,7 @@
         }
 
         public TileData[] Tiles;
+        public MonsterData[] Monsters;
     }
 
 }

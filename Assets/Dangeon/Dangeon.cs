@@ -34,6 +34,18 @@
             Instantiate(RoomPrefab, this.transform)
                 .GetComponent<Room>()
                 .Create(DangeonGeneratorData, room);
+
+            var monstersCount = Random.Range(3, 7);
+            for (var i = 0; i < monstersCount; i++) {
+                var monsterData = DangeonGeneratorData.Monsters[Random.Range(0, DangeonGeneratorData.Monsters.Length)];
+
+                var monster = Instantiate(monsterData.MonsterPrefab, this.transform);
+                monster.transform.localPosition = new Vector3(
+                    (room.x + Random.Range(0, room.width)) * 5 + 2.5f,
+                    1,
+                    (room.y + Random.Range(0, room.height)) * 5 + 2.5f
+                );
+            }
         }
     }
 
