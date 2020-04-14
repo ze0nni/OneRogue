@@ -32,7 +32,7 @@
         }
 
         public DangeonGenerator.DangeonData Generate(int width, int height, int levels, System.Random random) {
-            var bsp = new BSPGenerator(3, 15, 0.5f);
+            var bsp = new BSPGenerator(3, 6, 0.5f);
             var triangulator = new RoomsTriangulator<RectInt>(r => r);
 
             var rooms = bsp.Generate(width, height, random);
