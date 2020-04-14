@@ -9,8 +9,8 @@
     public class Dangeon : MonoBehaviour
     {
         public Player player;
-
         public DangeonGeneratorData DangeonGeneratorData;
+        public GameObject RoomPrefab;
 
         void Start()
         {
@@ -31,20 +31,9 @@
         }
 
         private void InsertRoom(RectInt room) {
-            for (var x = room.xMin; x < room.xMax; x++)
-            {
-                for (var y = room.yMin; y < room.yMax; y++)
-                {
-                    var t = DangeonGeneratorData.Tiles[Random.Range(0, DangeonGeneratorData.Tiles.Length)];
-                    var tile = Instantiate(t.tilePrefab, this.transform);
-                    var tileTransform = tile.GetComponent<Transform>();
-                    tileTransform.position = new Vector3(
-                        x * 5,
-                        0,
-                        y * 5
-                    );
-                }
-            }
+            Instantiate(RoomPrefab, this.transform)
+                .GetComponent<Room>()
+                .Create(DangeonGeneratorData, room);
         }
     }
 
