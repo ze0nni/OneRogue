@@ -1,5 +1,6 @@
 ﻿namespace Dangeon
 {
+    using global::Dangeon.Generator;
     using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
@@ -25,8 +26,23 @@
             }
         }
 
-        public void Generate(int width, int height, int levels) {
-            
+        public struct DangeonData {
+            public List<RectInt> Rooms;
+            public List<(RectInt, RectInt)> Links;
+        }
+
+        public DangeonGenerator.DangeonData Generate(int width, int height, int levels, System.Random random) {
+            var bsp = new BSPGenerator(3, 15, 0.5f);
+            var triangulator = new RoomsTriangulator<RectInt>(r => r);
+
+            var rooms = bsp.Generate(width, height, random);
+            var links = triangulator.Generate(rooms);
+
+            return new DangeonData()
+            {
+                Rooms = rooms,
+                Links = links
+            };
         }
 
         public enum CellType { None, Way, Exit }

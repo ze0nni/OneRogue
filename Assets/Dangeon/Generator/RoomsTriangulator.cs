@@ -49,11 +49,13 @@
                 }
                 else
                 {
-                    var nearest = selected.OrderBy(x => weightGraph.Value(n, x)).First();
+                    var nearest = selected.OrderBy(x => weightGraph.Value(n, x));
+                    var first = nearest.First();
 
-                    graph.Update(true, n, nearest);
                     selected.Add(n);
-                    selected.Add(nearest);
+
+                    graph.Update(true, n, first);
+                    selected.Add(first);
                 }
             }
 

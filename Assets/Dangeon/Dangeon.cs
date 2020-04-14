@@ -12,11 +12,19 @@
 
         void Start()
         {
+            var random = new System.Random();
             var generator = new DangeonGenerator(DangeonGeneratorData);
+            var dangeon = generator.Generate(64, 64, 1, random);           
 
-            for (var x = -4; x < 4; x++)
+            foreach (var r in dangeon.Rooms) {
+                InsertRoom(r);
+            }
+        }
+
+        private void InsertRoom(RectInt room) {
+            for (var x = room.xMin; x < room.xMax; x++)
             {
-                for (var y = -4; y < 4; y++)
+                for (var y = room.yMin; y < room.yMax; y++)
                 {
                     var t = DangeonGeneratorData.Tiles[Random.Range(0, DangeonGeneratorData.Tiles.Length)];
                     var tile = Instantiate(t.tilePrefab, this.transform);
