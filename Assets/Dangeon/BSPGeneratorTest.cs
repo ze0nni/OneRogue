@@ -8,8 +8,8 @@
 
     public class BSPGeneratorTest : MonoBehaviour
     {
-        public Slider Width;
-        public Slider Height;
+        public int Width = 128;
+        public int Height = 64;
         public RectTransform DangeonDisplay;
 
         private System.Random random = new System.Random();
@@ -24,7 +24,7 @@
         {
             ClearDisplay();
 
-            var rooms = generator.Generate((int)Width.value, (int)Height.value, random);
+            var rooms = generator.Generate(Width, Height, random);
             foreach (var rect in rooms)
             {
                 InsertRoom(rect);

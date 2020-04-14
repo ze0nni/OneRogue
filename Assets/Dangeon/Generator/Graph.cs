@@ -11,7 +11,7 @@
         private Dictionary<N, int> nodeIndex = new Dictionary<N, int>();
         private V[,] links;
 
-        public Graph(IEnumerable<N> nodes, Predicate<V> predicate)
+        public Graph(List<N> nodes, Predicate<V> predicate)
         {
             this.nodes = new List<N>(nodes);
             this.predicate = predicate;
