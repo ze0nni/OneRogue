@@ -18,6 +18,8 @@
             {
                 this.nodeIndex[this.nodes[i]] = i;
             }
+
+            this.links = new bool[size, size];
         }
 
         public void Link(N a, N b)
@@ -67,7 +69,10 @@
             for (var a = 0; a <size; a++) {
                 for (var b = 0; b < a; b++)
                 {
-                    result.Add((nodes[a], nodes[b]));
+                    if (links[a, b])
+                    {
+                        result.Add((nodes[a], nodes[b]));
+                    }
                 }
             }
 
