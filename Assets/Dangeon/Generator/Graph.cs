@@ -22,23 +22,21 @@
             this.links = new bool[size, size];
         }
 
-        public void Link(N a, N b)
+        public void Update(bool linked, params N[] links)
         {
-            if (a == b) {
-                return;
+            var size = links.Length;
+            int[] indexes = new int[size];
+            for (var i = 0; i < size; i++) {
+                indexes[i] = nodeIndex[links[i]];
             }
-            var an = nodeIndex[a];
-            var bn = nodeIndex[b];
-            links[an, bn] = true;
-            links[bn, an] = true;
-        }
-
-        public void UnLink(N a, N b)
-        {
-            var an = nodeIndex[a];
-            var bn = nodeIndex[b];
-            links[an, bn] = false;
-            links[bn, an] = false;
+            for (var a = 0; a < size - 1;a++) {
+                for (var b = a + 1; b < size; b ++) {
+                    var ia = indexes[a];
+                    var ib = indexes[b];
+                    this.links[ia, ib] = linked;
+                    this.links[ib, ia] = linked;
+                }
+            }
         }
 
         public bool IsLinked(N a, N b)
@@ -75,7 +73,6 @@
                     }
                 }
             }
-
             return result;
         }
     }
