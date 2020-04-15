@@ -10,7 +10,7 @@
         public Sprite Image;
 
         public float Mass = 1f;
-        public float Demage;
+        public int Damage;
         public float Range;
 
         public float Prepare;

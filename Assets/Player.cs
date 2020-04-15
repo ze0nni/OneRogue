@@ -64,6 +64,7 @@ public class Player : MonoBehaviour
     public void UpdateButtonB(bool value)
     {
         buttonB = value;
+        Time.timeScale = value ? 0.1f : 1;
     }
 
     void Update()

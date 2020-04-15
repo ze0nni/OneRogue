@@ -1,11 +1,20 @@
 ﻿using Data;
+using Monsters;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+
+[System.Serializable]
+public class OnDamageableTouched : UnityEvent<Damageable>
+{
+}
+
 
 public class Weapon : MonoBehaviour
 {
     public WeaponDataList weaponList;
+    public OnDamageableTouched OnDamageableTouched;
 
     WeaponData currentWeapon;
 
@@ -26,15 +35,22 @@ public class Weapon : MonoBehaviour
             transform.position + transform.forward * weapon.Range * 0.5f,
             weapon.Range / 2
         );
-        foreach (var h in hits)
-        {
+    
+        foreach (var h in hits) {
             var rigid = h.gameObject.GetComponent<Rigidbody>();
-            if (null != rigid)
-            {
+            
+            if (null != rigid) {
                 var f = h.gameObject.transform.position - transform.position;
-
                 rigid.AddForce(f.normalized * weapon.Mass, ForceMode.Impulse);
             }
+            
+            var damagable = h.gameObject.GetComponent<Damageable>();
+            if (null == damagable) {
+                continue;
+            }
+
+            damagable.Hit(currentWeapon.Damage);
+            OnDamageableTouched.Invoke(damagable);
         }
     }
 
