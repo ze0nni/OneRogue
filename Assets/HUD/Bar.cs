@@ -8,11 +8,15 @@ public class Bar : MonoBehaviour
     private float updateSpeed = 0.25f;
     private Image bar;
     private Image subBar;
+    private Text text;
 
     void Start()
     {
         bar = transform.Find("bar").GetComponent<Image>();
         subBar = transform.Find("subbar").GetComponent<Image>();
+        text = transform.Find("text").GetComponent<Text>();
+
+        text.text = "";
     }
 
     void Update()
@@ -59,5 +63,9 @@ public class Bar : MonoBehaviour
         {
             UpdateBar(points / max, fast);
         }
+    }
+
+    public void UpdateText(string value) {
+        text.text = value;
     }
 }

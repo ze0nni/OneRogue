@@ -26,7 +26,7 @@ public class CurrentMonsterBar : MonoBehaviour
             return;
         }
 
-        bar.UpdateBar(currentMonster.damageable.Points, currentMonster.damageable.MaxPoints, false);
+        bar.UpdateBar(currentMonster.damageable.LastFramePoints, currentMonster.damageable.MaxPoints, false);
     }
 
     public void UpdateCurrentMonster(Damageable damageable)
@@ -42,6 +42,7 @@ public class CurrentMonsterBar : MonoBehaviour
         }
 
         gameObject.SetActive(true);
-        bar.UpdateBar(currentMonster.damageable.Points, currentMonster.damageable.MaxPoints, true);
+        bar.UpdateText(monster.name);
+        bar.UpdateBar(currentMonster.damageable.LastFramePoints, currentMonster.damageable.MaxPoints, true);
     }
 }
