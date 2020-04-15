@@ -115,7 +115,7 @@ public class Weapon : MonoBehaviour
             msg.update(1f - (wait / currentWeapon.Prepare * 1000f), WeaponHitTaskPhase.Prepare);
 
             SendMessage("OnWeaponHitTask", msg, SendMessageOptions.DontRequireReceiver);
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForEndOfFrame();
             wait -= Time.deltaTime;
         }
         #endregion
@@ -142,7 +142,7 @@ public class Weapon : MonoBehaviour
         var range = max - min;
 
         SendMessage("OnWeaponHitTask", msg, SendMessageOptions.DontRequireReceiver);
-        yield return new WaitForFixedUpdate();
+        yield return new WaitForEndOfFrame();
         wait -= Time.deltaTime;
         while (wait > 0)
         {
@@ -152,7 +152,7 @@ public class Weapon : MonoBehaviour
             );
 
             SendMessage("OnWeaponHitTask", msg, SendMessageOptions.DontRequireReceiver);
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForEndOfFrame();
             wait -= Time.deltaTime;
         }
 
