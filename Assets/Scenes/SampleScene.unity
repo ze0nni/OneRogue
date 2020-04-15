@@ -281,7 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   YInvert: 0
-  Sensetive: 3
+  Sensetive: 2
   OnReleativeCoordX:
     m_PersistentCalls:
       m_Calls:
@@ -1366,8 +1366,10 @@ MonoBehaviour:
   centerOfMassMovementOffset: 1
   centerOfMassMovementYOffset: 1
   forwardSpeed: 10
+  forwardSpeedChange: 20
   jumpSpeed: 25
   drag: 30
+  minimumMovementAxis: 0.1
   Ground:
     serializedVersion: 2
     m_Bits: 513
