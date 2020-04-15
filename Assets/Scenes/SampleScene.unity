@@ -281,6 +281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   YInvert: 0
+  Sensetive: 3
   OnReleativeCoordX:
     m_PersistentCalls:
       m_Calls:
@@ -402,6 +403,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   YInvert: 1
+  Sensetive: 1
   OnReleativeCoordX:
     m_PersistentCalls:
       m_Calls: []

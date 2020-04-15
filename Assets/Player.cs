@@ -72,8 +72,11 @@ public class Player : MonoBehaviour
         var mx = this.horizontalAxis;
         var mz = this.verticalAxis;
         
-        //TODO: Normalize
-        var direction = (transform.right * mx + transform.forward * mz) * forwardSpeed + Physics.gravity;
+        //
+        var direction = (transform.right * mx + transform.forward * mz) * forwardSpeed;
+        if (direction.magnitude > forwardSpeed) {
+            direction = direction.normalized * forwardSpeed;
+        }
 
         //
         var spend = Time.deltaTime * drag;
@@ -84,7 +87,7 @@ public class Player : MonoBehaviour
             momentForce = momentForce.normalized * (forceLength - spend);
         }
 
-        this.controller.Move((direction + momentForce) * Time.deltaTime);
+        this.controller.Move((direction + momentForce + Physics.gravity) * Time.deltaTime);
 
         weapon.Trigger(buttonA);
     }

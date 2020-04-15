@@ -13,6 +13,7 @@ public class TouchBarInput : MonoBehaviour,
     IPointerDownHandler
 {
     public bool YInvert = true;
+    public float Sensetive = 1f;
 
     private float sensScale;
 
@@ -87,7 +88,7 @@ public class TouchBarInput : MonoBehaviour,
             return;
         }
         var offset = touch.deltaPosition * sensScale;
-        var releative = (touch.position - this.startPosition) * sensScale;
+        var releative = (touch.position - this.startPosition) * sensScale * Sensetive;
 
         OnReleativeCoordX.Invoke(releative.x);
         OnReleativeCoordY.Invoke(YInvert ? -releative.y : releative.y);
