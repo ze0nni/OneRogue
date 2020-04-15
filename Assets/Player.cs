@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
     private float mouseAxisX = 0;
     private float mouseAxisY = 0;
 
+    private bool buttonA;
+    private bool buttonB;
+
     public LayerMask Ground;
 
     Vector3 momentForce = new Vector3();
@@ -54,6 +57,15 @@ public class Player : MonoBehaviour
         return new Vector2(mouseAxisX, mouseAxisY);
     }
 
+    public void UpdateButtonA(bool value) {
+        buttonA = value;
+    }
+
+    public void UpdateButtonB(bool value)
+    {
+        buttonB = value;
+    }
+
     void Update()
     {
         var mx = this.horizontalAxis;
@@ -71,17 +83,9 @@ public class Player : MonoBehaviour
             momentForce = momentForce.normalized * (forceLength - spend);
         }
 
-        if (Input.GetButtonDown("Jump") && CanJump()) {
-            momentForce += new Vector3(0, jumpSpeed, 0);
-        }
-
         this.controller.Move((direction + momentForce) * Time.deltaTime);
 
-        weapon.Trigger(Input.GetButton("Fire1"));
-
-        if (Input.GetButtonDown("Fire2")) {
-            weapon.Switch();
-        }
+        weapon.Trigger(buttonA);
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit) {
