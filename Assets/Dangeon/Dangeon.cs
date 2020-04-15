@@ -12,8 +12,12 @@
         public DangeonGeneratorData DangeonGeneratorData;
         public GameObject RoomPrefab;
 
+        private GameObject[] monsters;
+
         void Start()
         {
+            this.monsters = Resources.LoadAll<GameObject>("Monsters");
+
             var random = new System.Random();
             var generator = new DangeonGenerator(DangeonGeneratorData);
             var dangeon = generator.Generate(24, 24, 1, random);           
@@ -27,7 +31,7 @@
                 start.center.x * 5,
                 5,
                 start.center.y * 5
-            );
+            );;
         }
 
         private void InsertRoom(RectInt room) {
@@ -36,10 +40,11 @@
                 .Create(DangeonGeneratorData, room);
 
             var monstersCount = Random.Range(3, 7);
-            for (var i = 0; i < monstersCount; i++) {
-                var monsterData = DangeonGeneratorData.Monsters[Random.Range(0, DangeonGeneratorData.Monsters.Length)];
+            for (var i = 0; i < monstersCount; i++)
+            {
+                var monsterData = monsters[Random.Range(0, monsters.Length)];
 
-                var monster = Instantiate(monsterData.MonsterPrefab, this.transform);
+                var monster = Instantiate(monsterData, this.transform);
                 monster.transform.localPosition = new Vector3(
                     (room.x + Random.Range(0, room.width)) * 5 + 2.5f,
                     1,

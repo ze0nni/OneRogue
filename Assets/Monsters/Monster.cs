@@ -8,12 +8,14 @@
     [RequireComponent(typeof(Damageable))]
     public class Monster : MonoBehaviour {
 
+        public int BaseHealthPoints;
+
         public Damageable damageable { get; private set; }
 
         void Start()
         {
             this.damageable = GetComponent<Damageable>();
-            this.damageable.UpdateMaxPoints(10, true);
+            this.damageable.UpdateMaxPoints(BaseHealthPoints, true);
         }
 
         void Update() {

@@ -12,7 +12,6 @@
         }
 
         public TileData[] Tiles;
-        public MonsterData[] Monsters;
     }
 
 }
