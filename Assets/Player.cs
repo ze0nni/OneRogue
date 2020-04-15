@@ -6,13 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Weapon))]
 public class Player : MonoBehaviour
 {
-    public Vector3 centerOfMass = new Vector3(0, -2, 0);
-    public float centerOfMassMovementOffset = 1;
-    public float centerOfMassMovementYOffset = 1;
-
     public float forwardSpeed = 10f;
-    public float forwardSpeedChange = 20f;
-    public float jumpSpeed = 30f;
     public float drag = 5f;
     public float minimumMovementAxis = 0.05f;
 
@@ -81,7 +75,6 @@ public class Player : MonoBehaviour
         if (direction.magnitude > forwardSpeed) {
             direction = direction.normalized * forwardSpeed;
         }
-        currentMovementSpeed = Vector3.MoveTowards(currentMovementSpeed, direction, forwardSpeedChange);
 
         //
         var spend = Time.deltaTime * drag;
@@ -92,17 +85,12 @@ public class Player : MonoBehaviour
             momentForce = momentForce.normalized * (forceLength - spend);
         }
 
-        this.controller.Move((currentMovementSpeed + momentForce + Physics.gravity) * Time.deltaTime);
+        this.controller.Move((direction + momentForce + Physics.gravity) * Time.deltaTime);
 
         weapon.Trigger(buttonA);
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit) {
         
-    }
-
-
-    bool CanJump() {
-        return Physics.CheckSphere(transform.position, 1.1f, Ground, QueryTriggerInteraction.Ignore);
     }
 }
