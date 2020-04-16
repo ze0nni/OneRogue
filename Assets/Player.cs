@@ -4,6 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Weapon))]
+[RequireComponent(typeof(InventoryContainer))]
 public class Player : MonoBehaviour
 {
     public float forwardSpeed = 10f;
@@ -26,11 +27,13 @@ public class Player : MonoBehaviour
 
     CharacterController controller;
     Weapon weapon;
-    
+    InventoryContainer inventory;
+
     void Start()
     {
         this.controller = GetComponent<CharacterController>();
         this.weapon = GetComponent<Weapon>();
+        this.inventory = GetComponent<InventoryContainer>();
     }
 
     public void SetHorisontalAxis(float value) {
