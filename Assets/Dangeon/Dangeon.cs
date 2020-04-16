@@ -13,10 +13,12 @@
         public GameObject RoomPrefab;
 
         private GameObject[] monsters;
+        private GameObject[] inventoryItems;
 
         void Start()
         {
             this.monsters = Resources.LoadAll<GameObject>("Monsters");
+            this.inventoryItems = Resources.LoadAll<GameObject>("Inventory");
 
             var random = new System.Random();
             var generator = new DangeonGenerator(DangeonGeneratorData);
@@ -46,6 +48,19 @@
 
                 var monster = Instantiate(monsterData, this.transform);
                 monster.transform.localPosition = new Vector3(
+                    (room.x + Random.Range(0, room.width)) * 5 + 2.5f,
+                    1,
+                    (room.y + Random.Range(0, room.height)) * 5 + 2.5f
+                );
+            }
+
+            var invCount = Random.Range(3, 7);
+            for (var i = 0; i < invCount; i++)
+            {
+                var invData = inventoryItems[Random.Range(0, inventoryItems.Length)];
+
+                var inv = Instantiate(invData, this.transform);
+                inv.transform.localPosition = new Vector3(
                     (room.x + Random.Range(0, room.width)) * 5 + 2.5f,
                     1,
                     (room.y + Random.Range(0, room.height)) * 5 + 2.5f
