@@ -17,14 +17,31 @@
 
         void Start()
         {
-            this.monsters = Resources.LoadAll<GameObject>("Monsters");
-            this.inventoryItems = Resources.LoadAll<GameObject>("Inventory");
+            player.gameObject.SetActive(false);
 
+            StartCoroutine(PrepareDangeon());
+        }
+
+        IEnumerator PrepareDangeon() {
+            Debug.Log("Start...");
+
+            yield return new WaitForEndOfFrame();
+            this.monsters = Resources.LoadAll<GameObject>("Monsters");
+            Debug.Log(string.Format("{0} Monsters loaded", monsters.Length));
+
+            yield return new WaitForEndOfFrame();
+            this.inventoryItems = Resources.LoadAll<GameObject>("Inventory");
+            Debug.Log(string.Format("{0} Inventory items loaded", inventoryItems.Length));
+
+            yield return new WaitForEndOfFrame();
             var random = new System.Random();
             var generator = new DangeonGenerator(DangeonGeneratorData);
-            var dangeon = generator.Generate(24, 24, 1, random);           
+            var dangeon = generator.Generate(24, 24, 1, random);
+            Debug.Log("Dangeon generated");
 
-            foreach (var r in dangeon.Rooms) {
+            yield return new WaitForEndOfFrame();
+            foreach (var r in dangeon.Rooms)
+            {
                 InsertRoom(r);
             }
 
@@ -33,7 +50,9 @@
                 start.center.x * 5,
                 5,
                 start.center.y * 5
-            );;
+            );
+
+            player.gameObject.SetActive(true);
         }
 
         private void InsertRoom(RectInt room) {
