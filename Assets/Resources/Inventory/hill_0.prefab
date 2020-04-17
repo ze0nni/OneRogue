@@ -76,7 +76,12 @@ PrefabInstance:
     - target: {fileID: 5192727449966065958, guid: ba24a27e7cac9f54ca9a21e9f4631543,
         type: 3}
       propertyPath: m_Name
-      value: _BaseItem (1) Variant
+      value: hill_0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8616234011281619689, guid: ba24a27e7cac9f54ca9a21e9f4631543,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba24a27e7cac9f54ca9a21e9f4631543, type: 3}

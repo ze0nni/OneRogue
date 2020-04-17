@@ -26,7 +26,7 @@ public class InventoryPickuper : MonoBehaviour
         }
 
         var slot = Instantiate(SlotPrefab, PickupMenuContainer.transform).GetComponent<PickupInventorySlot>();
-        slot.Create(item);
+        slot.Create(item, OnInventoryPicked);
 
         nearestItems.Add(slot);
         Realign();
@@ -38,14 +38,24 @@ public class InventoryPickuper : MonoBehaviour
         {
             return;
         }
+        RemoveSlot(item);
+    }
+
+    private void RemoveSlot(InventoryItem item) {
         var slot = nearestItems.Find(x => x.InventoryItem == item);
-        if (null == slot) {
+        if (null == slot)
+        {
             return;
         }
         nearestItems.Remove(slot);
         slot.RemoveSlot();
 
         Realign();
+    }
+
+    private void OnInventoryPicked(InventoryItem item) {
+        RemoveSlot(item);
+        this.inventory.Add(item);
     }
 
     private void Realign() {

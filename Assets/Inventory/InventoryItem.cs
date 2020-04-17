@@ -7,8 +7,6 @@ public class InventoryItem : MonoBehaviour
 {
     public string Title;
 
-
-
     public Sprite Sprite() {
         var face = transform.Find("Face");
         if (null == face) {
