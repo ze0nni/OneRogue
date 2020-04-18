@@ -14,15 +14,19 @@ public class TouchButton : MonoBehaviour,
     IPointerUpHandler
 {
     public OnButtonChanged OnButtonChanged;
+    public UnityEvent OnButtonDown;
+    public UnityEvent OnButtonUp;
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        OnButtonDown.Invoke();
         OnButtonChanged.Invoke(true);
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
         OnButtonChanged.Invoke(false);
+        OnButtonUp.Invoke();
     }
 
     void Start()

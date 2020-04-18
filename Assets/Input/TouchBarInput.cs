@@ -34,13 +34,14 @@ public class TouchBarInput : MonoBehaviour,
         this.sensScale = (Mathf.PI * 2) / Screen.width;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        if (this.active) {
+    public void BeginTouch() {
+        if (this.active)
+        {
             return;
         }
 
-        foreach (var t in Input.touches) {
+        foreach (var t in Input.touches)
+        {
             if (TouchPhase.Began == t.phase)
             {
                 this.active = true;
@@ -50,6 +51,11 @@ public class TouchBarInput : MonoBehaviour,
                 return;
             }
         }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        BeginTouch();
     }
 
     public bool GetTouch(int touchFinger, ref Touch touch)
