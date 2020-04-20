@@ -57,7 +57,7 @@
 
         private void InsertRoom(RectInt room) {
             Instantiate(RoomPrefab, this.transform)
-                .GetComponent<Room>()
+                .GetComponent<RoomLegasy>()
                 .Create(DangeonGeneratorData, room);
 
             var monstersCount = Random.Range(3, 7);
