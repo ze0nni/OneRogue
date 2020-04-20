@@ -1,18 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using Dangeon;
 using UnityEngine;
 
 public class Room : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void Spawn(GeneratedRoom generatedRoom)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        this.transform.position = new Vector3(
+            generatedRoom.position.x * 25,
+            0,
+            generatedRoom.position.y * 25
+        );
     }
 }

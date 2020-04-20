@@ -2061,7 +2061,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1798445981}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 50, z: 0}
+  m_LocalPosition: {x: 5, y: 1, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2169,8 +2169,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1798445986}
-  DangeonGeneratorData: {fileID: 11400000, guid: 538e786fe8e3afa4190827f4115b1430,
-    type: 2}
   RoomPrefab: {fileID: 3612253009448340952, guid: 842c7868007a84f438fe703138a5acd6,
     type: 3}
 --- !u!4 &1850012165
