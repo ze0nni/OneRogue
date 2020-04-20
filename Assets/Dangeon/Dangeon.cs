@@ -55,7 +55,8 @@
         }
 
         public void InsertRoom(GeneratedRoom generatedRoom) {
-            Instantiate(this.rooms[0], this.transform)
+            var room = this.rooms[UnityEngine.Random.Range(0, this.rooms.Length)];
+            Instantiate(room, this.transform)
                 .GetComponent<Room>().Spawn(generatedRoom);
         }
     }
